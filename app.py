@@ -463,7 +463,7 @@ def get_google_auth_url():
     if not cfg["client_id"] or not cfg["redirect_uri"]:
         return None
 
-    state = "test123"
+    state = secrets.token_urlsafe(24)
     st.session_state.google_oauth_state = state
     params = {
         "client_id": cfg["client_id"],
@@ -1014,7 +1014,6 @@ def require_authentication():
         if google_ready:
             google_url = get_google_auth_url()
             if google_url:
-                st.code(get_google_auth_url())
                 escaped_url = html.escape(google_url, quote=True)
                 st.markdown(
                     f"""
