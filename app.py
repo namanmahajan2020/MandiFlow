@@ -2257,30 +2257,29 @@ if not live_df.empty:
         display_df = display_df[display_df['market'] == sel_market]
 
     if not display_df.empty:
-    # Mocking the mobile app column seen in the reference image
-    display_df['Mobile App'] = "Get Free Alert"
+        display_df['Mobile App'] = "Get Free Alert"
 
-    required_cols = [
-        'commodity',
-        'arrival_date',
-        'variety',
-        'state',
-        'district',
-        'market',
-        'min_price',
-        'max_price',
-        'modal_price',
-        'Mobile App'
-    ]
+        required_cols = [
+            'commodity',
+            'arrival_date',
+            'variety',
+            'state',
+            'district',
+            'market',
+            'min_price',
+            'max_price',
+            'modal_price',
+            'Mobile App'
+        ]
 
-    for col in required_cols:
-        if col not in display_df.columns:
-            display_df[col] = ""
+        for col in required_cols:
+            if col not in display_df.columns:
+                display_df[col] = ""
 
-    st.write(display_df.head())
-    st.write(display_df.columns.tolist())
+        st.write(display_df.head())
+        st.write(display_df.columns.tolist())
 
-    table_view = display_df[required_cols].copy()
+        table_view = display_df[required_cols].copy()
 
     # Format the price columns
     table_view['min_price'] = table_view['min_price'].apply(
@@ -2363,5 +2362,4 @@ else:
 
 st.markdown("---")
 st.caption(f"System status: Operational | Latest Update: {st.session_state.get('last_update', 'N/A')}")
-
 
