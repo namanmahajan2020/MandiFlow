@@ -2257,10 +2257,6 @@ if not live_df.empty:
         display_df = display_df[display_df['market'] == sel_market]
 
     if not display_df.empty:
-        st.write("live_df columns:", live_df.columns.tolist())
-
-        display_df['Mobile App'] = "Get Free Alert"
-
         required_cols = [
             'commodity',
             'arrival_date',
@@ -2270,16 +2266,8 @@ if not live_df.empty:
             'market',
             'min_price',
             'max_price',
-            'modal_price',
-            'Mobile App'
+            'modal_price'
         ]
-
-        for col in required_cols:
-            if col not in display_df.columns:
-                display_df[col] = ""
-
-        st.write(display_df.head())
-        st.write(display_df.columns.tolist())
 
         table_view = display_df[required_cols].copy()
 
@@ -2295,7 +2283,7 @@ if not live_df.empty:
         )
 
         # Map to columns specifically requested in the screenshot
-        table_view.columns = ['Commodity', 'Arrival Date', 'Variety', 'State', 'District', 'Market', 'Min Price', 'Max Price', 'Modal Price', 'Mobile App']
+        table_view.columns = ['Commodity', 'Arrival Date', 'Variety', 'State', 'District', 'Market', 'Min Price', 'Max Price', 'Modal Price']
         
         st.dataframe(table_view, hide_index=True, width="stretch")
         
