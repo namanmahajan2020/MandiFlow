@@ -2257,6 +2257,8 @@ if not live_df.empty:
         display_df = display_df[display_df['market'] == sel_market]
 
     if not display_df.empty:
+        st.write("live_df columns:", live_df.columns.tolist())
+
         display_df['Mobile App'] = "Get Free Alert"
 
         required_cols = [
@@ -2281,16 +2283,16 @@ if not live_df.empty:
 
         table_view = display_df[required_cols].copy()
 
-    # Format the price columns
-    table_view['min_price'] = table_view['min_price'].apply(
-        lambda x: f"Rs {x} / Quintal" if pd.notnull(x) else "N/A"
-    )
-    table_view['max_price'] = table_view['max_price'].apply(
-        lambda x: f"Rs {x} / Quintal" if pd.notnull(x) else "N/A"
-    )
-    table_view['modal_price'] = table_view['modal_price'].apply(
-        lambda x: f"Rs {x} / Quintal" if pd.notnull(x) else "N/A"
-    )
+        # Format the price columns
+        table_view['min_price'] = table_view['min_price'].apply(
+            lambda x: f"Rs {x} / Quintal" if pd.notnull(x) else "N/A"
+        )
+        table_view['max_price'] = table_view['max_price'].apply(
+            lambda x: f"Rs {x} / Quintal" if pd.notnull(x) else "N/A"
+        )
+        table_view['modal_price'] = table_view['modal_price'].apply(
+            lambda x: f"Rs {x} / Quintal" if pd.notnull(x) else "N/A"
+        )
 
         # Map to columns specifically requested in the screenshot
         table_view.columns = ['Commodity', 'Arrival Date', 'Variety', 'State', 'District', 'Market', 'Min Price', 'Max Price', 'Modal Price', 'Mobile App']
