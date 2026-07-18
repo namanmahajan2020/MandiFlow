@@ -2257,14 +2257,41 @@ if not live_df.empty:
         display_df = display_df[display_df['market'] == sel_market]
 
     if not display_df.empty:
-        # Mocking the mobile app column seen in the reference image
-        display_df['Mobile App'] = "Get Free Alert"
-        table_view = display_df[['commodity', 'arrival_date', 'variety', 'state', 'district', 'market', 'min_price', 'max_price', 'modal_price', 'Mobile App']].copy()
-        
-        # Format the price columns as "Rs X / Quintal" to identically match the UI image
-        table_view['min_price'] = table_view['min_price'].apply(lambda x: f"Rs {x} / Quintal" if pd.notnull(x) else "N/A")
-        table_view['max_price'] = table_view['max_price'].apply(lambda x: f"Rs {x} / Quintal" if pd.notnull(x) else "N/A")
-        table_view['modal_price'] = table_view['modal_price'].apply(lambda x: f"Rs {x} / Quintal" if pd.notnull(x) else "N/A")
+    # Mocking the mobile app column seen in the reference image
+    display_df['Mobile App'] = "Get Free Alert"
+
+    required_cols = [
+        'commodity',
+        'arrival_date',
+        'variety',
+        'state',
+        'district',
+        'market',
+        'min_price',
+        'max_price',
+        'modal_price',
+        'Mobile App'
+    ]
+
+    for col in required_cols:
+        if col not in display_df.columns:
+            display_df[col] = ""
+
+    st.write(display_df.head())
+    st.write(display_df.columns.tolist())
+
+    table_view = display_df[required_cols].copy()
+
+    # Format the price columns
+    table_view['min_price'] = table_view['min_price'].apply(
+        lambda x: f"Rs {x} / Quintal" if pd.notnull(x) else "N/A"
+    )
+    table_view['max_price'] = table_view['max_price'].apply(
+        lambda x: f"Rs {x} / Quintal" if pd.notnull(x) else "N/A"
+    )
+    table_view['modal_price'] = table_view['modal_price'].apply(
+        lambda x: f"Rs {x} / Quintal" if pd.notnull(x) else "N/A"
+    )
 
         # Map to columns specifically requested in the screenshot
         table_view.columns = ['Commodity', 'Arrival Date', 'Variety', 'State', 'District', 'Market', 'Min Price', 'Max Price', 'Modal Price', 'Mobile App']
