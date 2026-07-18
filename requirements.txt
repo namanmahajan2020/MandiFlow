@@ -8,6 +8,7 @@ streamlit-folium
 altair
 scipy
 torch
+torch-geometric
 google-genai
 pdfplumber
 matplotlib
